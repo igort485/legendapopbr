@@ -1,0 +1,2705 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Video Playlist</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.min.js"></script>
+	<style>
+
+@font-face {
+  font-family: 'Flama Black';
+  src: url('C:\Users\itrep\Downloads\Fontes\TV\MTV Brasil\MTV Hits 2020\Flama-Black.woff.ttf');
+}
+
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('C:\Users\itrep\Downloads\Fontes\Variados\helveticaneue-heavy_N7s8I\HelveticaNeue Heavy\HelveticaNeue Heavy.ttf');
+}
+
+@font-face {
+  font-family: 'MTVGravityGrotesk';
+  src: url('C:\Users\itrep\Downloads\Fontes\TV\MTV Brasil\MTV Rebrand 2021 Fonts by Guilherme\MTVGravityGrotesk-Bold.otf');
+}
+
+@font-face {
+  font-family: 'HelveticaNeueLT Pro 67 MdCn';
+  src: url('C:\Users\itrep\Downloads\Fontes\Variados\Helvetica Neue Condensed Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Helvetica Neue LT Pro';
+  src: url('C:\Users\itrep\Downloads\Fontes\TV\MTV Brasil\MTV Rebrand 2017\HelveticaNeueLTProHv.ttf');
+}
+
+@font-face {
+  font-family: 'Replica Pro';
+  src: url('C:\Users\itrep\Downloads\Fontes\TV\FontsFree-Net-ReplicaPro.ttf');
+}
+
+@font-face {
+  font-family: 'Futura BT';
+  src: url('C:\Users\itrep\Downloads\Fontes\Variados\futura-bt-bold-maisfontes.3627\futura-bt-bold.ttf');
+}
+
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Alinhe o vídeo no topo */
+  height: 100vh; /* Defina a altura do contêiner */
+}
+
+.video-container video {
+  height: 100%; /* Mantenha a altura original do vídeo */
+  width: 100%; /* Preencha a largura do contêiner */
+}
+
+#videoPlayer video {
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto; /* use margin: auto para centralizar o vídeo horizontalmente */
+}
+
+        .video-overlay::before {
+  content: url(path/to/my/html/file.html);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9997;
+}
+
+.video-overlay {
+    position: absolute;
+    bottom: 0;
+    top: 63.5px;
+    left: 578px;
+    right: 0px;
+    max-width: 389px;
+    color: rgba(0, 0, 0, 0);
+    font-size: 30px;
+    font-family: 'Flama Black', sans-serif;
+    opacity: 0;
+    overflow: hidden;
+    text-transform: lowercase;
+    z-index: 10000;
+    transform: scaleY(0.9);
+}
+
+.video-overlay .artist {
+  position: absolute;
+  display: block;
+  left: 0px;
+    text-align: left;
+    transform-origin: left;
+    color: #000000;
+    white-space: nowrap;
+    animation: scrolling 25s linear infinite;
+    animation-delay: 10.8s;
+}
+
+@keyframes scrolling {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-720px);
+    }
+}
+
+.overlay2 {
+    position: absolute;
+    bottom: 0;
+    top: 63.5px;
+    left: 995px;
+    right: 0px;
+    max-width: 477px;
+    color: rgba(0, 0, 0, 0);
+    font-size: 30px;
+    font-family: 'Flama Black', sans-serif;
+    opacity: 0;
+    overflow: hidden;
+    text-transform: lowercase;
+    z-index: 10000;
+    transform: scaleY(0.9);
+}
+
+.overlay2 .title {
+  position: absolute;
+  display: block;
+  right: 0px;
+    text-align: right;
+    transform-origin: right;
+    color: #000000;
+    white-space: nowrap;
+    animation: scrolling2 25s linear infinite;
+    animation-delay: 10.8s;
+}
+
+@keyframes scrolling2 {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(720px);
+    }
+}
+
+#text-overlay {
+  position: absolute;
+  top: 80px;
+  right: 157px;
+  width: auto;
+  height: auto;
+  text-align: right;
+  letter-spacing: 0px;
+  color: rgb(255, 255, 255);
+  font-size: 32px;
+  font-family: 'HelveticaNeue', sans-serif;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateX(-48px); /* adicionando a transformação inicial */
+  z-index: 9994;
+}
+
+#text-overlay.show {
+  opacity: 1;
+  transform: translateX(0); /* adicionando a transformação de aparecer */
+}
+
+#agora {
+  position: absolute;
+  top: 62px;
+  left: 210px;
+  width: auto;
+  height: auto;
+  text-align: left;
+  letter-spacing: 2px;
+  color: #FF3C3C;
+  font-size: 22px;
+  font-family: 'MTVGravityGrotesk', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateX(40px); /* adicionando a transformação inicial */
+  z-index: 9994;
+}
+
+#agora.show {
+  opacity: 1;
+  transform: translateX(0); /* adicionando a transformação de aparecer */
+}
+
+#showtitle1 {
+  position: absolute;
+  top: 92px;
+  left: 210px;
+  width: auto;
+  height: auto;
+  text-align: left;
+  letter-spacing: 2px;
+  color: #ffffff;
+  font-size: 26px;
+  font-family: 'MTVGravityGrotesk', sans-serif;
+  opacity: 0;
+  transition: opacity 0s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateX(40px); /* adicionando a transformação inicial */
+  z-index: 9994;
+}
+
+#next {
+  position: absolute;
+  top: 62px;
+  left: 210px;
+  width: auto;
+  height: auto;
+  text-align: left;
+  letter-spacing: 2px;
+  color: #00AACD;
+  font-size: 22px;
+  font-family: 'MTVGravityGrotesk', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateX(40px); /* adicionando a transformação inicial */
+  z-index: 9994;
+}
+
+#next.show {
+  opacity: 1;
+  transform: translateX(0); /* adicionando a transformação de aparecer */
+}
+
+#showtitle1.show {
+  opacity: 1;
+  transform: translateX(0); /* adicionando a transformação de aparecer */
+}
+
+#showtitle2 {
+  position: absolute;
+  top: 92px;
+  left: 210px;
+  width: auto;
+  height: auto;
+  text-align: left;
+  letter-spacing: 2px;
+  color: #ffffff;
+  font-size: 26px;
+  font-family: 'MTVGravityGrotesk', sans-serif;
+  opacity: 0;
+  transition: opacity 0s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateX(40px); /* adicionando a transformação inicial */
+  z-index: 9994;
+}
+
+#showtitle2.show {
+  opacity: 1;
+  transform: translateX(0); /* adicionando a transformação de aparecer */
+}
+
+#mtv-logo {
+    position: absolute;
+		bottom: 0px;
+		top: 80px;
+		left: 150px;
+		width: 96px;
+		height: auto;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#mtv-logo-2 {
+    position: absolute;
+		bottom: 0px;
+		top: 80px;
+		left: 150px;
+		width: 96px;
+		height: auto;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#gc {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9996;
+}
+
+#legenda-logo {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9999;
+}
+
+#mtv-logo-2021 {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9999;
+}
+
+#mtv-logo-2021-branco {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9998;
+}
+
+#backimage {
+    position: absolute;
+		bottom: 0px;
+		top: -3px;
+		left: -3px;
+		width: 100%;
+		height: auto;
+    padding: 10px;
+    opacity: 1;
+}
+
+iframe {
+  position: absolute;
+}
+
+#content-2013 {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9999;
+}
+
+#hashtag-2017 {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9999;
+}
+
+#agora-2017 {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9999;
+}
+
+#next-2017 {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9999;
+}
+
+#logo-2017 {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9999;
+}
+
+#mtvhits-logo {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9999;
+}
+
+#mtvlogo-2013 {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9999;
+}
+
+.digital-clock {
+  position: absolute;
+  top: 130px;
+  left: 96px; /* Alterado para 'right' em vez de 'left' */
+  width: auto;
+  height: auto;
+  text-align: left;
+  letter-spacing: 2px;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: 'MTVGravityGrotesk', sans-serif;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 9994;
+}
+
+.temperature {
+  position: absolute;
+  top: 130px;
+  right: 1738px; /* Alterado para 'right' em vez de 'left' */
+  width: auto;
+  height: auto;
+  text-align: right;
+  letter-spacing: 2px;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: 'MTVGravityGrotesk', sans-serif;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 9994;
+}
+
+.digital-clock5 {
+  position: absolute;
+  top: 130px;
+  left: 96px; /* Alterado para 'right' em vez de 'left' */
+  width: auto;
+  height: auto;
+  text-align: left;
+  letter-spacing: 2px;
+  color: #ffffff;
+  font-size: 24px;
+  font-family: 'Neon 80s', sans-serif;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 9994;
+}
+
+.temperature5 {
+  position: absolute;
+  top: 130px;
+  right: 1708px; /* Alterado para 'right' em vez de 'left' */
+  width: auto;
+  height: auto;
+  text-align: right;
+  letter-spacing: 2px;
+  color: #ffffff;
+  font-size: 24px;
+  font-family: 'Neon 80s', sans-serif;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 9994;
+}
+
+.transition-opacity {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.transition-properties {
+  transition: color 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.digital-clock2 {
+  position: absolute;
+  top: 166.7px;
+  left: 160px; /* Ou qualquer outra posição desejada */
+  width: auto;
+  height: auto;
+  text-align: left;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: 'HelveticaNeue', sans-serif;
+  opacity: 0;
+  z-index: 9994;
+}
+
+.temperature2 {
+  position: absolute;
+  top: 166.7px;
+  right: 1661.5px; /* Ou qualquer outra posição desejada */
+  width: auto;
+  height: auto;
+  text-align: right;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: 'HelveticaNeue', sans-serif;
+  opacity: 0;
+  z-index: 9994;
+}
+
+.digital-clock3 {
+  position: absolute;
+  top: 166px;
+  left: 161px; /* Alterado para 'right' em vez de 'left' */
+  width: auto;
+  height: auto;
+  text-align: left;
+  letter-spacing: 1px;
+  color: #EBDD48;
+  font-size: 33px;
+  font-family: 'Flama Black', sans-serif;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 9994;
+}
+
+.temperature3 {
+  position: absolute;
+  top: 166px;
+  right: 1573px; /* Alterado para 'right' em vez de 'left' */
+  width: auto;
+  height: auto;
+  text-align: right;
+  color: #3CDBAF;
+  font-size: 33px;
+  font-family: 'Flama Black', sans-serif;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 9994;
+}
+
+.digital-clock4 {
+  position: absolute;
+  top: 166px;
+  left: 161px; /* Alterado para 'right' em vez de 'left' */
+  width: auto;
+  height: auto;
+  text-align: left;
+  letter-spacing: 1px;
+  color: #EBDD48;
+  font-size: 32px;
+  font-family: 'HelveticaNeue', sans-serif;
+  opacity: 0;
+  transition: opacity 0s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateX(40px); /* adicionando a transformação inicial */
+  z-index: 9994;
+}
+
+.temperature4 {
+  position: absolute;
+  top: 166px;
+  right: 1573px; /* Alterado para 'right' em vez de 'left' */
+  width: auto;
+  height: auto;
+  text-align: right;
+  color: #3CDBAF;
+  font-size: 32px;
+  font-family: 'HelveticaNeue', sans-serif;
+  opacity: 0;
+  transition: opacity 0s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateX(40px); /* adicionando a transformação inicial */
+  z-index: 9994;
+}
+
+#temp-gc {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9999;
+}
+
+#cron-BG {
+    position: absolute;
+		bottom: 0px;
+		top: 435px;
+		left: 770px;
+		width: 60%;
+		height: auto;
+    opacity: 0;
+    z-index: 9999;
+}
+
+#cronometro1 {
+  position: absolute;
+  top: 990px;
+  left: 1350px; /* Alterado para 'right' em vez de 'left' */
+  width: auto;
+  height: auto;
+  text-align: left;
+  letter-spacing: 2px;
+  color: #ffffff;
+  font-size: 36px;
+  font-family: 'MTVGravityGrotesk', sans-serif;
+  font-weight: bold;
+  -webkit-text-stroke: 1px #000000; /* Espessura e cor do contorno */
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 9999;
+}
+
+#cronometro {
+  position: absolute;
+  top: 1010px;
+  left: 1635px; /* Alterado para 'right' em vez de 'left' */
+  width: auto;
+  height: auto;
+  text-align: center;
+  color: #ffffff;
+  font-size: 40px;
+  font-family: 'MTVGravityGrotesk', sans-serif;
+  font-weight: bold;
+  -webkit-text-stroke: 1px #000000; /* Espessura e cor do contorno */
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 9999;
+}
+
+.video-overlaySec {
+    position: absolute;
+    bottom: 0;
+    top: 600px;
+    left: 65px;
+    right: 0;
+    width: 790px;
+    height: 120px;
+    line-height: 110%;
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    font-family: 'Replica Pro', sans-serif;
+    opacity: 0;
+    padding: 30px;
+    padding-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 1s ease-in-out;
+    box-sizing: border-box;
+    z-index: 9997;
+    background: linear-gradient(to right, #ff0000, #f9bc3f);
+}
+
+.video-overlay3 {
+    position: absolute;
+    bottom: 0;
+    top: 890px;
+    left: 70px;
+    right: 0;
+    width: 790px;
+    height: 120px;
+    line-height: 110%;
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    font-family: 'Replica Pro', sans-serif;
+    opacity: 0;
+    padding: 30px;
+    padding-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 1s ease-in-out;
+    z-index: 9997;
+}
+
+#gc4 {
+    position: absolute;
+		bottom: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: auto;
+    opacity: 0;
+    z-index: 9996;
+}
+
+.video-overlay4 {
+    position: absolute;
+    bottom: 0;
+    top: 900px;
+    left: 270px;
+    right: 0;
+    width: 500px;
+    height: 120px;
+    line-height: 110%;
+    color: rgb(0, 0, 0);
+    font-size: 40px;
+    font-family: 'Futura', sans-serif;
+    font-weight: 1000;
+    text-transform: uppercase;
+    opacity: 0;
+    padding: 30px;
+    padding-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 9997;
+    transition: transform 1s;
+    transform: scaleX(0);
+    transform-origin: left center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.video-overlay4 .artists {
+    position: absolute;
+    top: 75px; /* Ajuste o valor para mover a sobreposição para baixo */
+    left: 70px; /* Ajuste o valor para mover a sobreposição para a direita */
+    width: 475px;
+    font-size: 32px;
+    font-weight: 1000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+
+.video-overlay4.show {
+    transform: scaleX(1);
+}
+	</style>
+</head>
+<body>
+    <div id="video-player"></div>
+<div id="text-overlay"></div>
+<div id="agora"></div>
+<div id="showtitle1"></div>
+<div id="next"></div>
+<div id="showtitle2"></div>
+<div id="repeated-text"></div>
+
+
+
+
+	<script>
+
+//     <iframe src="C:\Users\itrep\Documents\MTV Script\data.html" allowtransparency="true" style="width: 100%; height: 100%;"></iframe>
+
+// showLogo2017
+// showHitsLogo
+// showLogo2021
+// showOverlay (GC MTV Hits 2020)
+// showHashtag2017
+// showAgora2017
+// showNext2017
+// showNow (2021)
+// showTag
+// showHastag2017
+// showCl (A14 Completo)
+// showCl2 (A14)
+// showGC1 (-)
+// showClock (2021)
+// showClock2 (2017)
+// showClock3 (MTV Hits 2020)
+// showClock4 (-)
+// artists: undefined, musica: undefined
+
+var videoList = [
+
+// {src: "voce esta vendo.mp4"},
+/* {src: "112D73ED-67C5-4CD9-B160-7F8A7BE58956.mov"},
+{src: "v5.mp4"},
+{src: "v9.mp4"},
+{src: "v7.mp4"},
+{src: "22E6D3FD-2145-427A-BCD1-2DD972FC0658.mov"}, */
+{src: "r23.mp4", title: "Summer Of '69", artist: "bryan adams", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r24.mp4", title: "Just Like A Pill", artist: "P!nk", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "v2.mp4"},
+{src: "r25.mp4", showCl2: true, title: "creep", artist: "radiohead", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r26.mp4", title: "Crying Lightning", artist: "arctic monkeys", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r27.mp4", title: "dancing with myself", artist: "billy idol", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "The All-American Rejects - Swing, Swing (Official Music Video).mp4", title: "swing, swing", artist: "the all-american rejects", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "112D73ED-67C5-4CD9-B160-7F8A7BE58956.mov"},
+{src: "v5.mp4"},
+{src: "r28.mp4", showCl2: true, title: "happy ending (live performance)", artist: "lovato, demi", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r29.mp4", title: "everybody hates me", artist: "gayle", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r30.mp4", title: "Happier Than Ever", artist: "Billie Eilish", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "v4.mp4"},
+{src: "r31.mp4", showCl2: true, title: "basket case", artist: "green day", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r32.mp4", title: "blaze of glory", artist: "jon bon jovi", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r33.mp4", title: "crazy, crazy nights", artist: "kiss", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "22E6D3FD-2145-427A-BCD1-2DD972FC0658.mov"},
+{src: "r34.mp4", showCl2: true, title: "you get what you give", artist: "new radicals", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r35.mp4", title: "Heart-Shaped Box", artist: "Nirvana", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r36.mp4", title: "daydreaming", artist: "paramore", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "v6.mp4"},
+{src: "112D73ED-67C5-4CD9-B160-7F8A7BE58956.mov"},
+{src: "r37.mp4", showCl2: true, title: "Rock You Like A Hurricane", artist: "Scorpions", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r38.mp4", title: "Two Of Us", artist: "The Beatle", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r39.mp4", title: "your love", artist: "the outfield", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "v7.mp4"},
+{src: "r40.mp4", showCl2: true, title: "every breath you take", artist: "the police", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r41.mp4", title: "amor e sexo (ao vivo mtv)", artist: "rita lee", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "The Strokes - You Only Live Once (Official HD Video).mp4", title: "you only live once", artist: "the strokes", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "r1.mp4", showCl: true, title: "hot", artist: "avril lavigne", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r2.mp4", title: "Bring Me To Life", artist: "Evanescence ", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r3.mp4", title: "November Rain", artist: "Guns N' Roses", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "r4.mp4", showCl2: true, title: "Candy", artist: "Iggy Pop", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r5.mp4", title: "emo girl", artist: "machine gun kelly featuring willow", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r6.mp4", title: "ur a stranger", artist: "willow", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "v1.mp4"},
+{src: "r7.mp4", showCl2: true, title: "what's up", artist: "4 Non Blondes", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r8.mp4", title: "antes de você", artist: "titãs", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r9.mp4", title: "depois da meia noite", artist: "capital inicial", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "112D73ED-67C5-4CD9-B160-7F8A7BE58956.mov"},
+{src: "v10.mp4"},
+{src: "r10.mp4", showCl2: true, title: "Sugar, We're Goin Down", artist: "fall out boy", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r11.mp4", title: "radioactive", artist: "imagine dragons", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "Louis Tomlinson - Silver Tongues (Official Video).mp4", title: "silver tongues", artist: "louis tomlinson", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "video novo_Trim.mp4"},
+{src: "Electric Touch (feat. Fall Out Boy) (Taylor's version) [Lyric Video].m4v", title: "electric touch (taylor's version) (lyric video)", artist: "taylor swift featuring fall out boy", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "Katy Perry - Hot N Cold (Official Music Video).mp4", title: "Hot N Cold", artist: "Katy Perry", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "r13.mp4", showCl2: true, title: "perfect illusion", artist: "lady gaga", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r14.mp4", title: "cages", artist: "Maggie Lindemann", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r15.mp4", title: "TIMEZONE (Lyric Video)", artist: "Måneskin", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "v3.mp4"},
+{src: "r16.mp4", showCl2: true, title: "sing", artist: "My Chemical Romance", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r17.mp4", title: "even flow", artist: "pearl jam", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r18.mp4", title: "Déja Vu", artist: "Pitty", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "v8.mp4"},
+{src: "112D73ED-67C5-4CD9-B160-7F8A7BE58956.mov"},
+{src: "r19.mp4", showCl2: true, title: "Child Of The Moon", artist: "the rolling stones", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r20.mp4", title: "Chlorine", artist: "twenty one pilots", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "r21.mp4", title: "numb", artist: "linkin park", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "voce esta vendo.mp4"},
+{src: "22E6D3FD-2145-427A-BCD1-2DD972FC0658.mov"},
+{src: "v4.mp4"},
+{src: "r22.mp4", showCl2: true, title: "You Oughta Know", artist: "Alanis Morissette", showOverlay4: true, showClock5: true, showLegendaLogo: true, showHashtag2017: true}
+
+// {src: "voce esta vendo.mp4"},
+/* {src: "20 sec.mp4", showClock5: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "20 sec.mp4", showLogo2013: true, showHashtag2017: true},
+{src: "Mike Posner - I Took A Pill In Ibiza [Seeb Remix] (Master AAC)-HDMania.mov", title: "I took a pill in ibiza (seeb remix)", artist: "mike posner", showOverlay4: true, showLogo2013: true, showHashtag2017: true},
+{src: "Electric Touch (feat. Fall Out Boy) (Taylor's version) [Lyric Video].m4v", title: "Electric Touch (Taylor's Version) (Lyric Video)", artist: "Taylor Swift featuring Fall Out Boy", showOverlay3: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "Back To December (Taylor's version) [Lyric Video].m4v", title: "Back To December (Taylor's Version) (Lyric Video)", artist: "Taylor Swift", showOverlay3: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "Better Than Revenge (Taylor's version) [Lyric Video].m4v", title: "Better Than Revenge (Taylor's Version) (Lyric Video)", artist: "Taylor Swift", showOverlay3: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "I Can See You (Taylor_s Version) (HD 1080p).m4v", title: "I Can See You (Taylor's Version) (From The Vault)", artist: "Taylor Swift", showOverlay3: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "I Can See You (Taylor's version) [Lyric Video].m4v", title: "I Can See You (Taylor's Version) (Lyric Video)", artist: "Taylor Swift", showOverlay3: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "Mine (Taylor's version) [Lyric Video].m4v", title: "Mine (Taylor's Version) (Lyric Video)", artist: "Taylor Swift", showOverlay3: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "Never Grow Up (Taylor's version) [Lyric Video].m4v", title: "Never Grow Up (Taylor's Version) (Lyric Video)", artist: "Taylor Swift", showOverlay3: true, showLegendaLogo: true, showHashtag2017: true}
+
+/* {src: "Habitual (Nature Visual) (1080p HD).m4v", title: "Habitual (Nature Visual)", artist: "Justin Bieber", showOverlaySec: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "Mike Posner - I Took A Pill In Ibiza [Seeb Remix] (Master AAC)-HDMania.mov", title: "I Took A Pill In Ibiza (Seeb Remix)", artist: "Mike Posner", showOverlaySec: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "Selena Gomez - Come & Get It_(Official Music Video)_4K-60FPS_.mp4", title: "Come & Get It", artist: "Selena Gomez", showOverlaySec: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "Cher Lloyd - None Of My Business.ts", title: "None Of My Business", artist: "Cher Lloyd", showOverlaySec: true, showLegendaLogo: true, showHashtag2017: true}
+
+/*
+{src: "TINI - Playa (Lyric Video).mp4", showCronometro: true, title: "Playa 1234567890 (Lyric Video)", artist: "Tini featuring Sebástian Yatra", director: "Hannah Lux Davis", showOverlaySec: true, showClock3: true, showHitsLogo: true, showHashtag2017: true},
+{src: "20 sec.mp4", showNext2017: true, showClock2: true, showAgora2017: true, showCronometro: true, showLegendaLogo: true, showHashtag2017: true},
+{src: "20 sec.mp4", showNext2017: true, showClock2: true, showAgora2017: true, showCronometro: true, showLogo2017: true, showHashtag2017: true},
+{src: "20 sec.mp4", showNext2017: true, showClock2: true, showAgora2017: true, showCronometro: true, showLogo2017: true, showHashtag2017: true},
+{src: "20 sec.mp4", showNext2017: true, showClock2: true, showAgora2017: true, showCronometro: true, showLogo2017: true, showHashtag2017: true},
+{src: "20 sec.mp4", showNext2017: true, showClock2: true, showAgora2017: true, showCronometro: true, showLogo2017: true, showHashtag2017: true},
+{src: "20 sec.mp4", showNext2017: true, showClock2: true, showAgora2017: true, showCronometro: true, showLogo2017: true, showHashtag2017: true},
+{src: "20 sec.mp4", showNext2017: true, showClock2: true, showAgora2017: true, showCronometro: true, showLogo2017: true, showHashtag2017: true},
+{src: "TINI - Playa (Lyric Video).mp4", showCronometro: true, artist: "tini", title: "playa (lyric video)", showOverlay: true, showClock3: true, showHitsLogo: true, showHashtag2017: true},
+{src: "12K.mp4", showNext2017: true, showClock2: true, showAgora2017: true, showCronometro: true, showLogo2017: true, showHashtag2017: true},
+{src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Abertura.mp4", showClock3: true, showHitsLogo: true, showHashtag2017: true},
+{src: "D:/Igor/Vídeos/Filmes/3 After.2019.1080p.BluRay.x264.DUAL-WWW.BLUDV.TV.mp4", showCronometro: true, showLogo: true, showHashtag2017: true},
+{src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Vinheta Entrada.mp4"},
+{src: "MTV Hits - Top.mp4", showGC: false, showCl2: false, showLogo: false, showTag: false, showOverlay: false},
+{src: "Louder_1.mp4", showClock: true, showLogo: true, showHashtag2017: true},
+{src: "1.mp4", showClock: true, showLogo: true, showHashtag2017: true},
+
+{src: "1.mp4", showClock: true, showLogo: true, showHashtag2017: true},
+{src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Vinheta Entrada.mp4"},
+{src: "baby.mkv", showClock: true, showLogo: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "LALI.mp4", showLogo: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "5 Lali.mp4", showLogo: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "LALI.mp4", showLogo: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+
+{src: "cron.mp4", showLogo2017: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "20 sec.mp4", showLogo2017: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "Normal_1.mp4", showLogo2017: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "Louder_1.mp4", showLogo2017: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "Lower_1.mp4", showLogo2017: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "1.mp4", showLogo2017: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "2.mp4", showLogo2017: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "4.mp4", showLogo2017: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "5.mp4", showLogo2017: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "6.mp4", showLogo2017: true, showAgora2017: true, showNow: false, showHashtag2017: true},
+{src: "12K.mp4", artist: "kim petras, nicki minaj", title: "alone", showLogo: true, showLogo2017: true, showAgora2017: true, showOverlay: false, showHashtag2017: true},
+{src: "euphoria   formula.mp4", artist: "kim petras, nicki minaj", title: "alone", showLogo: true, showAgora2017: true, showOverlay: false, showHashtag2017: true},
+{src: "1.mp4", artist: "ice spice, nicki minaj", title: "princess diana", showHashtag2017: true, showLogo: true, showOverlay: true},
+{src: "D:/Igor/Vídeos/MTV & Paramount/MTV Hits - Top 15 - Maluma x Madonna [Apr-24-2019] MTVHD 1080i HDTV DD2.0 H.264 CELOBRAZiL-HDMania.mp4", showLogo: false},
+{src: "D:/Igor/Vídeos/MTV & Paramount/Clean Version/Kim Petras & Nicki Minaj - Alone (Official Music Video).mp4", artist: "kim petras, nicki minaj", title: "alone", showLogo: true, showOverlay: true},
+{src: "D:/Igor/Vídeos/4K Video Downloader/Variados/Anitta - VAI VENDO [feat. Mc Ryan SP] [Official Music Video].mp4", artist: "anitta, ryan sp", title: "vai vendo", showLogo: true, showOverlay: true},
+{src: "D:/Igor/Vídeos/4K Video Downloader/Variados/TINI, Maria Becerra - Miénteme (Video Oficial).mp4", artist: "tini & maría becerra", title: "miénteme", showLogo: true, showOverlay: true},
+{src: "1.mp4", artist: "ice spice, nicki minaj", title: "princess diana", showLogo: true, showOverlay: true},
+{src: "1.mp4", showLogo: true, showNow: false, showContent1: true, show2017: true},
+{src: "20s.mp4", showLogo: true, showNow: false},
+{src: "1.mp4", showLogo: true, showNow: false},
+{src: "2.mp4", showLogo: true, showNow: false},
+{src: "3.mp4", showLogo: true, showNow: false},
+{src: "4.mp4", showLogo: true, showNow: false},
+{src: "5.mp4", showLogo: true, showNow: false},
+{src: "6.mp4", showLogo: true, showNow: false},
+{src: "12K.mp4", showLogo: true, showNow: false},
+{src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Vinheta Entrada.mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: false},
+{src: "MTV Hits - Top.mp4", showGC: false, showCl2: false, showLogo: false, showTag: false, showOverlay: false},
+{src: "1.mp4", showGC: false, showCl2: true, showLogo: true, showTag: true, showOverlay: true},
+{src: "MTV Hits - Top.mp4", showGC: false, showCl2: false, showLogo: false, showTag: false, showOverlay: false},
+{src: "2.mp4", showGC: false, showCl2: true, showLogo: true, showTag: true, showOverlay: true},
+{src: "MTV Hits - Top.mp4", showGC: false, showCl2: false, showLogo: false, showTag: false, showOverlay: false},
+{src: "3.mp4", showGC: false, showCl2: true, showLogo: true, showTag: true, showOverlay: true},
+{src: "D:/Igor/Vídeos/Adobe Premiere Pro/Projetos/Renderizações/Variados/FLETCHER - Becky's So Hot (Official Video) Starring Bella Thorne.mp4", showGC: false, showCl2: true, showLogo: true, showTag: true, showOverlay: true},
+{src: "D:/Igor/Vídeos/Adobe Premiere Pro/Projetos/Renderizações/Variados/FLETCHER - Becky's So Hot (Official Video) Starring Bella Thorne.mp4", showGC: false, showCl2: true, showLogo: true, showTag: true, showOverlay: true},
+{src: "PinkPantheress, Ice Spice - Boy’s a liar Pt. 2 (Official Video).mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showGC: false, showCl2: true, showLogo: true, showTag: true, showOverlay: true},
+
+{src: "1 MINUTE.mp4", showGC: false, showCl2: true, showLogo: true, showTag: true, showOverlay: true},
+{src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Vinheta Entrada.mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: false},
+{src: "D:/Igor/Vídeos/Adobe Premiere Pro/Projetos/Renderizações/Variados/FLETCHER - Becky's So Hot (Official Video) Starring Bella Thorne.mp4", showGC: false, showCl2: true, showLogo: true, showTag: true, showOverlay: true},
+{src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Vinheta Entrada.mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: false},
+{src: "PinkPantheress, Ice Spice - Boy’s a liar Pt. 2 (Official Video).mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showGC: false, showCl2: true, showLogo: true, showTag: true, showOverlay: true},
+
+{src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Vinheta Entrada.mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: false},
+{src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Vinheta Entrada.mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: false},
+{src: "euphoria   formula.mp4", artist: "cher lloyd", title: "none of my business", showCl: false, showLogo: true, showTag: true, showOverlay: false, showGC1: true},
+{src: "PinkPantheress, Ice Spice - Boy’s a liar Pt. 2 (Official Video).mp4", artist: "pinkpantheress & ice spice", title: "boy's a liar pt. 2", showCl: true, showLogo: true, showTag: true, showOverlay: true},
+{src: "PinkPantheress, Ice Spice - Boy’s a liar Pt. 2 (Official Video).mp4", artist: "pinkpantheress & ice spice", title: "boy's a liar pt. 2", showCl: true, showLogo: true, showTag: true, showOverlay: true},
+{src: "D:/Igor/Vídeos/Adobe Premiere Pro/Projetos/Variados/Twitch/Comerciais/Manu/Top 20 (BR).mp4", artist: "meduza & james carter featuring elley duhé & fast boy", title: "bad memories", showCl: false, showLogo: true, showTag: false, showOverlay: false},
+{src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Vinheta Entrada.mp4", artist: "meduza & james carter featuring elley duhé & fast boy", title: "bad memories", showCl: false, showLogo: true, showTag: false, showOverlay: false},
+{src: "PinkPantheress, Ice Spice - Boy’s a liar Pt. 2 (Official Video).mp4", artist: "pinkpantheress & ice spice", title: "boy's a liar pt. 2", showCl: true, showLogo: true, showTag: true, showOverlay: true},
+{src: "euphoria   formula.mp4", artist: "cher lloyd", title: "none of my business", showCl: false, showLogo: true, showTag: true, showOverlay: true},
+{src: "1 MINUTE.mp4", artist: "bts", title: "911", showCl: true, showLogo: true, showTag: true, showOverlay: true},
+  {src: "2 minutes.mp4", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: true},
+  {src: "Legenda Pop BR_1.mp4", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: true},
+  {src: "videoteste.mp4", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: true},
+  {src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Vinheta Saída.mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showCl: true, showLogo: true, showTag: true, showOverlay: false},
+  {src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Abertura.mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: false},
+  {src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Abertura.mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: false},
+  {src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Vinheta Saída.mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: false},
+  {src: "D:/Igor/Vídeos/MTV Rebrands/MTV Hits/MTV Hits - Edições/MTV Hits 2020 - Vinhetas/MTV Hits Vinhetas 2/Vinheta Entrada.mp4", title: "Abertura MTV Hits", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: false},
+  {src: "euphoria   formula.mp4", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: true},
+  {src: "the motto.mp4", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: true},
+  {src: "the motto.mp4", artist: "bts", title: "911", showLogo: true, showTag: true, showOverlay: true}
+*/
+
+];
+
+
+		var videoIndex = 0;
+var videoPlayer = document.getElementById("video-player");
+var mtvLogo = document.getElementById("mtv-logo");
+var mtvLogo2 = document.getElementById("mtv-logo-2");
+var mtvGC = document.getElementById("gc");
+var mtvGC2 = document.getElementById("gc");
+var mtvhitsGC1 = document.getElementById("gc");
+var gc4 = document.getElementById("gc4");
+var mtvLogo2021 = document.getElementById("mtv-logo-2021");
+var legendaLogo = document.getElementById("legenda-logo");
+var content2013 = document.getElementById("content-2013");
+var hashtag2017 = document.getElementById("hashtag-2017");
+var agora2017 = document.getElementById("agora-2017");
+var next2017 = document.getElementById("next-2017");
+var logo2017 = document.getElementById("logo-2017");
+var mtvhitslogo= document.getElementById("mtvhits-logo");
+var mtvlogo2013= document.getElementById("mtvlogo-2013");
+var tempgc= document.getElementById("temp-gc");
+var textOverlay = document.getElementById("text-overlay"); // Adicionar esta linha
+var agoraNow = document.getElementById("agora"); // Adicionar esta linha
+var showtitleNow = document.getElementById("showtitle1"); // Adicionar esta linha
+var nextNext = document.getElementById("next"); // Adicionar esta linha
+var showtitleNext = document.getElementById("showtitle2"); // Adicionar esta linha
+
+
+
+function playVideo() {
+    // Create video element
+    var videoElement = document.createElement("video");
+    videoElement.src = videoList[videoIndex].src;
+    videoElement.autoplay = true; // Adicionar esta linha
+    videoElement.controls = false;
+    videoElement.playsinline = true; // Adiciona o atributo playsinline
+    videoElement.addEventListener("ended", nextVideo);
+    videoElement.addEventListener("error", handleVideoError); // Adiciona tratador de evento de erro
+
+// Verificar as dimensões do vídeo e aplicar o zoom se necessário
+videoElement.addEventListener("loadedmetadata", function() {
+  var videoWidth = this.videoWidth;
+  var videoHeight = this.videoHeight;
+
+  if (videoWidth > 1920 || videoHeight > 1080) {
+    var container = document.querySelector('.video-container');
+    container.style.overflow = 'hidden';
+    container.style.display = 'flex';
+    container.style.justifyContent = 'center';
+    container.style.alignItems = 'center';
+
+    var containerRatio = container.offsetWidth / container.offsetHeight;
+    var videoRatio = videoWidth / videoHeight;
+
+    if (containerRatio > videoRatio) {
+      videoElement.style.width = '100%';
+      videoElement.style.height = 'auto';
+    } else {
+      videoElement.style.width = 'auto';
+      videoElement.style.height = '100%';
+    }
+  }
+});
+
+        // Create overlay with title and artist
+        var overlaySecElement = document.createElement("div");
+        overlaySecElement.className = "video-overlaySec";
+        overlaySecElement.innerHTML = videoList[videoIndex].title + "<br><span class='artists'>" + videoList[videoIndex].artist + "</span>" + "<br><span class='diretor'>Dir: " + videoList[videoIndex].director + "</span>";
+        overlaySecElement.style.display = "none"; // adicionar esta linha para esconder o overlay
+
+                 // Create overlay with title and artist
+                var overlay3Element = document.createElement("div");
+                overlay3Element.className = "video-overlay3";
+                overlay3Element.innerHTML = videoList[videoIndex].title + "<br><span class='artists'>" + videoList[videoIndex].artist + "</span>" + "<br><span class='album'>" + videoList[videoIndex].album + "</span>" + "<br><span class='diretor'>Dir: " + videoList[videoIndex].director + "</span>";
+                overlay3Element.style.display = "none"; // adicionar esta linha para esconder o overlay 
+
+                                 // Create overlay with title and artist
+                                 var overlay4Element = document.createElement("div");
+                overlay4Element.className = "video-overlay4";
+                overlay4Element.innerHTML = videoList[videoIndex].title + "<br><span class='artists'>" + videoList[videoIndex].artist + "</span>" + "</span>";
+                overlay4Element.style.display = "none"; // adicionar esta linha para esconder o overlay 
+
+                /* var src = videoList[0].src; // Assuming videoIndex is 0 in this case
+var artist = src.match(/^(.*?)\s-\s/)[1].trim();
+var titleWithExtension = src.substring(src.lastIndexOf("-") + 1).trim();
+var extensionIndex = titleWithExtension.lastIndexOf(".");
+var title = titleWithExtension.substring(0, extensionIndex);
+
+var overlay3Element = document.createElement("div");
+overlay3Element.className = "video-overlay3";
+overlay3Element.innerHTML = title + "<br><span class='artists'>" + artist + "</span>" + "<br><span class='album'>" + videoList[0].album + "</span>" + "<br><span class='diretor'>Dir: " + videoList[0].director + "</span>";
+overlay3Element.style.display = "none"; */
+
+
+
+    // Ajustar o volume do vídeo para o valor desejado (-23 dB)
+//    const desireddB = -13;
+//    const referencedB = 0;
+//    const volumeAdjustment = desireddB - referencedB;
+//    const volumeFactor = Math.pow(10, volumeAdjustment / 20);
+
+    // Verificar se o volume está abaixo do limite mínimo de -20 dB
+//    const minVolumedB = -15;
+//    const minVolumeFactor = Math.pow(10, minVolumedB / 20);
+//    const finalVolumeFactor = Math.max(volumeFactor, minVolumeFactor);
+
+//    videoElement.volume = finalVolumeFactor;
+
+    // Definir o número de repetições desejado
+    const numRepeticoes = 11;
+
+    // Create overlay with title and artist
+    var overlayElement = document.createElement("div");
+    overlayElement.className = "video-overlay";
+
+    // Criar uma string com o artista repetido
+const artistaRepetido = (videoList[videoIndex].artist + " ").repeat(numRepeticoes);
+
+// Definir a string repetida como o conteúdo da overlay2
+overlayElement.innerHTML = "<span class='artist'>" + artistaRepetido + "</span>";
+    overlayElement.style.display = "none"; // adicionar esta linha para esconder o overlay
+
+// Create overlay with director for overlay2
+var overlay2 = document.createElement("div");
+overlay2.className = "overlay2";
+
+// Criar uma string com o título repetido
+const titleRepetido = (videoList[videoIndex].title + " ").repeat(numRepeticoes);
+
+// Definir a string repetida como o conteúdo da overlay2
+overlay2.innerHTML = "<span class='title'>" + titleRepetido + "</span>";
+overlay2.style.display = "none"; // adicionar esta linha para esconder o overlay
+
+// Create digital clock element
+var clockElement = document.createElement("div");
+clockElement.className = "digital-clock";
+
+// Create temperature element
+var temperatureElement = document.createElement("div");
+temperatureElement.className = "temperature";
+
+// Append clock and temperature elements to the document body
+document.body.appendChild(clockElement);
+document.body.appendChild(temperatureElement);
+
+// Function to update the digital clock
+function updateClock() {
+  var now = new Date();
+  var hours = now.getHours().toString().padStart(2, '0');
+  var minutes = now.getMinutes().toString().padStart(2, '0');
+  var timeString = hours + ":" + minutes;
+  clockElement.innerText = timeString;
+}
+
+// Function to update the temperature
+function updateTemperature(temperature) {
+  temperatureElement.innerText = temperature;
+}
+
+// Function to get the temperature of São Paulo
+function getSaoPauloTemperature() {
+  var apiKey = "cadc0d3031d621c8be640533584a6861"; // Replace with your OpenWeatherMap API key
+  var url = "https://api.openweathermap.org/data/2.5/weather?q=Sao+Paulo&appid=" + apiKey + "&units=metric";
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      var temperature = Math.round(data.main.temp) + "°";
+      updateTemperature(temperature);
+    })
+    .catch(error => {
+      console.log("Error fetching temperature:", error);
+    });
+}
+
+// Update the digital clock initially
+updateClock();
+
+// Update the digital clock every second
+setInterval(function() {
+  updateClock();
+}, 1000);
+
+// Get the temperature of São Paulo initially
+getSaoPauloTemperature();
+
+// Update the temperature every 5 minutes (300000 milliseconds)
+setInterval(function() {
+  getSaoPauloTemperature();
+}, 300000);
+
+
+// Create digital clock2 element
+var clock2Element = document.createElement("div");
+clock2Element.className = "digital-clock2";
+
+// Create temperature2 element
+var temperature2Element = document.createElement("div");
+temperature2Element.className = "temperature2";
+
+// Append clock2 and temperature2 elements to the document body
+document.body.appendChild(clock2Element);
+document.body.appendChild(temperature2Element);
+
+// Function to update the digital clock2
+function updateClock2() {
+  var now = new Date();
+  var hours = now.getHours().toString().padStart(2, '0');
+  var minutes = now.getMinutes().toString().padStart(2, '0');
+  var timeString = hours + ":" + minutes;
+  clock2Element.innerText = timeString;
+}
+
+// Function to update the temperature2
+function updateTemperature2(temperature) {
+  temperature2Element.innerText = temperature;
+}
+
+// Function to get the temperature of São Paulo
+function getSaoPauloTemperature2() {
+  var apiKey = "cadc0d3031d621c8be640533584a6861"; // Replace with your OpenWeatherMap API key
+  var url = "https://api.openweathermap.org/data/2.5/weather?q=Sao+Paulo&appid=" + apiKey + "&units=metric";
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      var temperature = Math.round(data.main.temp) + "°";
+      updateTemperature2(temperature);
+    })
+    .catch(error => {
+      console.log("Error fetching temperature:", error);
+    });
+}
+
+// Update the digital clock2 initially
+updateClock2();
+
+// Update the digital clock2 every second
+setInterval(function() {
+  updateClock2();
+}, 1000);
+
+// Get the temperature of São Paulo initially
+getSaoPauloTemperature2();
+
+// Update the temperature2 every 5 minutes (300000 milliseconds)
+setInterval(function() {
+  getSaoPauloTemperature2();
+}, 300000);
+
+
+// Create digital clock3 element
+var clock3Element = document.createElement("div");
+clock3Element.className = "digital-clock3";
+
+// Create temperature3 element
+var temperature3Element = document.createElement("div");
+temperature3Element.className = "temperature3";
+
+// Append clock3 and temperature3 elements to the document body
+document.body.appendChild(clock3Element);
+document.body.appendChild(temperature3Element);
+
+// Function to update the digital clock3
+function updateClock3() {
+  var now = new Date();
+  var hours = now.getHours().toString().padStart(2, '0');
+  var minutes = now.getMinutes().toString().padStart(2, '0');
+  var timeString = hours + ":" + minutes;
+  clock3Element.innerText = timeString;
+}
+
+// Function to update the temperature3
+function updateTemperature3(temperature) {
+  temperature3Element.innerText = temperature;
+}
+
+// Function to get the temperature of São Paulo
+function getSaoPauloTemperature3() {
+  var apiKey = "cadc0d3031d621c8be640533584a6861"; // Replace with your OpenWeatherMap API key
+  var url = "https://api.openweathermap.org/data/2.5/weather?q=Sao+Paulo&appid=" + apiKey + "&units=metric";
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      var temperature = Math.round(data.main.temp) + "º";
+      updateTemperature3(temperature);
+    })
+    .catch(error => {
+      console.log("Error fetching temperature:", error);
+    });
+}
+
+// Update the digital clock3 initially
+updateClock3();
+
+// Update the digital clock3 every second
+setInterval(function() {
+  updateClock3();
+}, 1000);
+
+// Get the temperature of São Paulo initially
+getSaoPauloTemperature3();
+
+// Update the temperature3 every 5 minutes (300000 milliseconds)
+setInterval(function() {
+  getSaoPauloTemperature3();
+}, 300000);
+
+////
+
+// Create digital clock3 element
+var clock4Element = document.createElement("div");
+clock4Element.className = "digital-clock4";
+
+// Create temperature3 element
+var temperature4Element = document.createElement("div");
+temperature4Element.className = "temperature4";
+
+// Append clock3 and temperature3 elements to the document body
+document.body.appendChild(clock4Element);
+document.body.appendChild(temperature4Element);
+
+// Function to update the digital clock3
+function updateClock4() {
+  var now = new Date();
+  var hours = now.getHours().toString().padStart(2, '0');
+  var minutes = now.getMinutes().toString().padStart(2, '0');
+  var timeString = hours + ":" + minutes;
+  clock4Element.innerText = timeString;
+}
+
+// Function to update the temperature3
+function updateTemperature4(temperature) {
+  temperature4Element.innerText = temperature;
+}
+
+// Function to get the temperature of São Paulo
+function getSaoPauloTemperature4() {
+  var apiKey = "cadc0d3031d621c8be640533584a6861"; // Replace with your OpenWeatherMap API key
+  var url = "https://api.openweathermap.org/data/2.5/weather?q=Sao+Paulo&appid=" + apiKey + "&units=metric";
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      var temperature = Math.round(data.main.temp) + "º";
+      updateTemperature4(temperature);
+    })
+    .catch(error => {
+      console.log("Error fetching temperature:", error);
+    });
+}
+
+// Update the digital clock3 initially
+updateClock4();
+
+// Update the digital clock3 every second
+setInterval(function() {
+  updateClock4();
+}, 1000);
+
+// Get the temperature of São Paulo initially
+getSaoPauloTemperature4();
+
+// Update the temperature3 every 5 minutes (300000 milliseconds)
+setInterval(function() {
+  getSaoPauloTemperature4();
+}, 300000);
+
+// Create digital clock3 element
+var clock5Element = document.createElement("div");
+clock5Element.className = "digital-clock5";
+
+// Create temperature3 element
+var temperature5Element = document.createElement("div");
+temperature5Element.className = "temperature5";
+
+// Append clock3 and temperature3 elements to the document body
+document.body.appendChild(clock5Element);
+document.body.appendChild(temperature5Element);
+
+// Function to update the digital clock3
+function updateClock5() {
+  var now = new Date();
+  var hours = now.getHours().toString().padStart(2, '0');
+  var minutes = now.getMinutes().toString().padStart(2, '0');
+  var timeString = hours + ":" + minutes;
+  clock5Element.innerText = timeString;
+}
+
+// Function to update the temperature3
+function updateTemperature5(temperature) {
+  temperature5Element.innerText = temperature;
+}
+
+// Function to get the temperature of São Paulo
+function getSaoPauloTemperature5() {
+  var apiKey = "cadc0d3031d621c8be640533584a6861"; // Replace with your OpenWeatherMap API key
+  var url = "https://api.openweathermap.org/data/2.5/weather?q=Sao+Paulo&appid=" + apiKey + "&units=metric";
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      var temperature = Math.round(data.main.temp) + "°";
+      updateTemperature5(temperature);
+    })
+    .catch(error => {
+      console.log("Error fetching temperature:", error);
+    });
+}
+
+// Update the digital clock3 initially
+updateClock5();
+
+// Update the digital clock3 every second
+setInterval(function() {
+  updateClock5();
+}, 1000);
+
+// Get the temperature of São Paulo initially
+getSaoPauloTemperature5();
+
+// Update the temperature3 every 5 minutes (300000 milliseconds)
+setInterval(function() {
+  getSaoPauloTemperature5();
+}, 300000);
+
+
+// Create container for video and overlay
+var containerElement = document.createElement("div");
+containerElement.className = "video-container";
+containerElement.appendChild(videoElement);
+containerElement.appendChild(overlayElement);
+containerElement.appendChild(overlaySecElement);
+containerElement.appendChild(overlay3Element);
+containerElement.appendChild(overlay4Element);
+containerElement.appendChild(overlay2);
+containerElement.appendChild(clockElement); // Add the clock element to the container
+containerElement.appendChild(clock2Element); // Add the clock2 element to the container
+containerElement.appendChild(clock3Element); // Add the clock3 element to the container
+containerElement.appendChild(clock4Element); // Add the clock3 element to the container
+containerElement.appendChild(clock5Element); // Add the clock3 element to the container
+
+videoPlayer.innerHTML = "";
+videoPlayer.appendChild(containerElement);
+
+
+/////// GC
+
+// Hide/show clocks based on video time
+if (videoList[videoIndex].showClock) {
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 3 && videoElement.currentTime <= videoElement.duration - 3) {
+      clockElement.style.opacity = 1;
+      temperatureElement.style.opacity = 1;
+    } else {
+      clockElement.style.opacity = 0;
+      temperatureElement.style.opacity = 0;
+    }
+  });
+}
+
+// Hide/show clocks based on video time
+if (videoList[videoIndex].showClock5) {
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 3 && videoElement.currentTime <= videoElement.duration - 3) {
+      clock5Element.style.opacity = 1;
+      temperature5Element.style.opacity = 1;
+    } else {
+      clock5Element.style.opacity = 0;
+      temperature5Element.style.opacity = 0;
+    }
+  });
+}
+
+// Hide text overlay after 5 seconds after start of video
+if (videoList[videoIndex].showClock2) {
+videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 0.5) {
+      clock2Element.classList.add("transition-opacity");
+      temperature2Element.classList.add("transition-opacity");
+      clock2Element.style.opacity = 1;
+      temperature2Element.style.opacity = 1;
+      clock2Element.style.color = "#F8FA08";
+      temperature2Element.style.color = "#F8FA08";
+    }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 10.10) {
+      clock2Element.classList.add("transition-properties");
+      temperature2Element.classList.add("transition-properties");
+      clock2Element.style.opacity = 0.5;
+      temperature2Element.style.opacity = 0.5;
+      clock2Element.style.color = "#ffffff"; // Altera para cor branca
+      temperature2Element.style.color = "#ffffff"; // Altera para cor branca
+    }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 4.8) {
+      clock2Element.classList.add("transition-properties");
+      temperature2Element.classList.add("transition-properties");
+      clock2Element.style.opacity = 1;
+      temperature2Element.style.opacity = 1;
+      clock2Element.style.color = "#F8FA08";
+      temperature2Element.style.color = "#F8FA08";
+    }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 1.8) {
+      clock2Element.classList.add("transition-opacity");
+      temperature2Element.classList.add("transition-opacity");
+      clock2Element.style.opacity = 0;
+      temperature2Element.style.opacity = 0;
+    }
+});
+}
+
+if (videoList[videoIndex].showClock3) {
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 0.8) {
+      clock3Element.style.opacity = 0.85;
+      temperature3Element.style.opacity = 0.85;
+    }
+});
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 2.7) {
+      clock3Element.style.opacity = 0;
+      temperature3Element.style.opacity = 0;
+    }
+  });
+}
+
+var tempgc;
+
+if (videoList[videoIndex].showClock4) {
+  tempgc = document.createElement("video");
+  tempgc.src = "Hashtag2017.webm"; // 9s
+  tempgc.type = "video/webm";
+  tempgc.autoplay = false;
+  tempgc.id = "temp-gc";
+  containerElement.appendChild(tempgc);
+
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 1.5) {
+      clock4Element.style.opacity = 1;
+      temperature4Element.style.opacity = 1;
+      clock4Element.classList.add("show");
+      temperature4Element.classList.add("show");
+      tempgc.play();
+    }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 1) {
+      clock4Element.style.opacity = 0;
+      temperature4Element.style.opacity = 0;
+      tempgc.classList.remove("show");
+    }
+  });
+}
+
+
+// AGORA
+
+if (videoList[videoIndex].showNow == true) {}
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 3) {
+    agoraNow.classList.add("show");
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 3) {
+    agoraNow.style.opacity = 1;
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 9.5) {
+    agoraNow.classList.remove("show");
+  }
+});
+
+// Hide text overlay after 5 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 10) {
+    agoraNow.style.opacity = 0;
+  }
+});
+
+/////////
+
+// Show text overlay again 5 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 46.35) {
+    agoraNow.style.opacity = 1;
+  }
+});
+
+// Hide text overlay again 5 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 45.12) {
+    agoraNow.style.opacity = 0;
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 45.15) {
+    agoraNow.classList.remove("show");
+  }
+});
+
+if (videoList[videoIndex].showNow == true) {}
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 3.3) {
+    showtitleNow.classList.add("show");
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 3.3) {
+    showtitleNow.style.opacity = 1;
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 9.2) {
+    showtitleNow.classList.remove("show");
+  }
+});
+
+// Hide text overlay after 5 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 9.7) {
+    showtitleNow.style.opacity = 0;
+  }
+});
+
+// Show text overlay again 5 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 46.35) {
+    showtitleNow.style.opacity = 1;
+  }
+});
+
+// Hide text overlay again 5 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 45.12) {
+    showtitleNow.style.opacity = 0;
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 45.15) {
+    showtitleNow.classList.remove("show");
+  }
+});
+
+// A SEGUIR
+
+if (videoList[videoIndex].showNow == true) {}
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 10) {
+    nextNext.classList.add("show");
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 10) {
+    nextNext.style.opacity = 1;
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 16.5) {
+    nextNext.classList.remove("show");
+  }
+});
+
+// Hide text overlay after 5 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 17) {
+    nextNext.style.opacity = 0;
+  }
+});
+
+/////////
+
+// Show text overlay again 5 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 46.35) {
+    nextNext.style.opacity = 1;
+  }
+});
+
+// Hide text overlay again 5 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 45.12) {
+    nextNext.style.opacity = 0;
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 45.15) {
+    nextNext.classList.remove("show");
+  }
+});
+
+if (videoList[videoIndex].showNow == true) {}
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 10.3) {
+    showtitleNext.classList.add("show");
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 10.3) {
+    showtitleNext.style.opacity = 1;
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 16.2) {
+    showtitleNext.classList.remove("show");
+  }
+});
+
+// Hide text overlay after 5 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 16.7) {
+    showtitleNext.style.opacity = 0;
+  }
+});
+
+// Show text overlay again 5 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 46.35) {
+    showtitleNext.style.opacity = 1;
+  }
+});
+
+// Hide text overlay again 5 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 45.12) {
+    showtitleNext.style.opacity = 0;
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 45.15) {
+    showtitleNext.classList.remove("show");
+  }
+});
+
+// logo 2021
+
+// HASHTAG TAG 2017
+
+// Declare a variable for the logo 2021
+var hashtag2017;
+
+if (videoList[videoIndex].showHashtag2017) {
+  hashtag2017 = document.createElement("video");
+  hashtag2017.src = getCurrentVideoSource(); // Define a origem do vídeo com base no horário atual (9s)
+  hashtag2017.type = "video/webm";
+  hashtag2017.autoplay = false;
+  hashtag2017.id = "hashtag-2017";
+  containerElement.appendChild(hashtag2017);
+
+  videoElement.addEventListener("loadedmetadata", function() {
+    if (videoElement.duration > 80) {
+      // Vídeo com mais de 80 segundos (1:33)
+      handleLongVideo();
+    } else if (videoElement.duration < 80 && videoElement.duration > 78) {
+      // Vídeo com menos de 78 segundos (1:30)
+      handleMedium2Video();
+    } else if (videoElement.duration < 78 && videoElement.duration > 30) {
+      // Vídeo com menos de 80 segundos
+      handleMediumVideo();
+    } else if (videoElement.duration < 30) {
+      // Vídeo com menos de 60 segundos
+      handleShortVideo();
+    }
+  });
+}
+
+function getCurrentVideoSource() {
+  var currentTime = new Date();
+  var currentHour = currentTime.getHours();
+  var currentMinute = currentTime.getMinutes();
+
+  // Verifica se o horário atual é anterior a 22:15
+  if (currentHour < 15 || (currentHour === 15 && currentMinute <= 15)) {
+//    return "Hashtag2017-2.webm";
+    return "hashtag-undefined.webm";
+  } else {
+//    return "Hashtag2017.webm";
+    return "hashtag-diadorock.webm";
+  }
+}
+
+
+function handleLongVideo() {
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 40) {
+      hashtag2017.style.opacity = 1;
+      hashtag2017.play();
+    }
+
+    if (videoElement.currentTime >= 45) {
+      hashtag2017.pause();
+    }
+
+    if (videoElement.currentTime >= videoElement.duration - 49) {
+      hashtag2017.play();
+    }
+
+    if (videoElement.currentTime >= videoElement.duration - 45) {
+      hashtag2017.style.opacity = 0;
+      hashtag2017.pause();
+    }
+  });
+}
+
+function handleMedium2Video() {
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= videoElement.duration - 44) {
+      hashtag2017.style.opacity = 1;
+      hashtag2017.play();
+    }
+
+    if (videoElement.currentTime >= videoElement.duration - 42.5) {
+      hashtag2017.style.opacity = 0.5;
+    }
+
+    if (videoElement.currentTime >= videoElement.duration - 42) {
+      hashtag2017.style.opacity = 1;
+      hashtag2017.currentTime = hashtag2017.duration - 1; // Define o tempo de início para 3 segundos antes do final do vídeo
+      hashtag2017.play();
+    }
+
+    if (videoElement.currentTime >= videoElement.duration - 41) {
+      hashtag2017.style.opacity = 0;
+      hashtag2017.pause();
+    }
+
+    if (videoElement.currentTime >= videoElement.duration - 40.5) {
+      hashtag2017.style.opacity = 1;
+      hashtag2017.play();
+    }
+
+    if (videoElement.currentTime >= videoElement.duration - 40) {
+      hashtag2017.style.opacity = 0;
+      hashtag2017.pause();
+    }
+  });
+}
+
+function handleMediumVideo() {
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 0) {
+      hashtag2017.style.opacity = 0;
+      hashtag2017.play();
+    }
+
+    if (videoElement.currentTime >= 8) {
+      hashtag2017.pause();
+    }
+
+    if (videoElement.currentTime >= videoElement.duration - 41) {
+      hashtag2017.style.opacity = 1;
+      hashtag2017.play();
+    }
+
+    if (videoElement.currentTime >= videoElement.duration - 40) {
+      hashtag2017.style.opacity = 0;
+      hashtag2017.pause();
+    }
+  });
+}
+
+function handleShortVideo() {
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 3) {
+      hashtag2017.style.opacity = 1;
+      hashtag2017.play();
+    }
+
+    if (videoElement.currentTime >= 8) {
+      hashtag2017.pause();
+    }
+
+    if (videoElement.currentTime >= videoElement.duration - 7) {
+      hashtag2017.play();
+    }
+
+    if (videoElement.currentTime >= videoElement.duration - 3) {
+      hashtag2017.style.opacity = 0;
+      hashtag2017.pause();
+    }
+  });
+}
+
+
+//// CRONÔMETRO
+
+var cronBG;
+
+if (videoList[videoIndex].showCronometro == true) {
+  cronBG = document.createElement("video");
+  cronBG.src = "MTV HITS 2020_cron_2.webm";
+  cronBG.type = "video/webm";
+  cronBG.autoplay = false;
+  cronBG.id = "cron-BG";
+  containerElement.appendChild(cronBG);
+}
+
+var cronometro = document.createElement("div");
+cronometro.id = "cronometro";
+containerElement.appendChild(cronometro);
+
+var agora = new Date(); // Obtém a data e hora atual
+var horarioEspecifico = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate(), 18, 0, 0); // Define o horário específico (20h)
+var tempoRestante = Math.floor((horarioEspecifico.getTime() - agora.getTime()) / 1000); // Calcula o tempo restante em segundos
+
+function formatarTempo(tempo) {
+  var horas = Math.floor(tempo / 3600);
+  var minutos = Math.floor((tempo % 3600) / 60);
+  var segundos = tempo % 60;
+  return horas.toString().padStart(2, "0") + ":" + minutos.toString().padStart(2, "0") + ":" + segundos.toString().padStart(2, "0");
+//  return "faltam" + "\n" + horas.toString().padStart(2, "0") + ":" + minutos.toString().padStart(2, "0") + ":" + segundos.toString().padStart(2, "0");
+}
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoList[videoIndex].showCronometro == true && videoElement.currentTime >= 2) {
+    cronometro.style.opacity = 1;
+    cronometro.innerText = formatarTempo(tempoRestante);
+
+    var tempoRestanteVideo = videoElement.duration - videoElement.currentTime;
+    if (tempoRestanteVideo <= 2) {
+      cronometro.style.opacity = 0;
+    }
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 1) {
+    cronBG.style.opacity = 1;
+    cronBG.play();
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 5) {
+    cronBG.pause();
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 6) {
+    cronBG.play();
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 1) {
+    cronBG.style.opacity = 0;
+  }
+});
+
+var cronometroInterval = setInterval(function() {
+  if (tempoRestante > 0) {
+    tempoRestante--;
+    cronometro.innerText = formatarTempo(tempoRestante);
+  }
+}, 1000);
+
+
+
+
+
+
+//// AGORA 2017
+
+// Declare a variable for the logo 2021
+var agora2017;
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showAgora2017 == true) {
+  agora2017 = document.createElement("video");
+  agora2017.src = getCurrentVideoSource2(); // Define a origem do vídeo com base no horário atual (15s)
+  agora2017.type = "video/webm";
+  agora2017.autoplay = false;
+  agora2017.id = "agora-2017";
+  containerElement.appendChild(agora2017);
+}
+
+function getCurrentVideoSource2() {
+  var currentTime = new Date();
+  var currentHour = currentTime.getHours();
+  var currentMinute = currentTime.getMinutes();
+
+  // Verifica se o horário atual é anterior a 22:15
+  if (currentHour < 22 || (currentHour === 22 && currentMinute <= 15)) {
+    return "minha vida na mtv.webm";
+  } else {
+    return "agora2017.webm";
+  }
+}
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 0) {
+    agora2017.style.opacity = 1;
+    agora2017.play();
+  }
+});
+
+// Hide overlay 25 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 11) {
+    agora2017.pause();
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= videoElement.duration - 5) {
+      agora2017.play();
+    }
+  });
+
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= videoElement.duration - 1) {
+      agora2017.style.opacity = 0;
+      agora2017.pause();
+    }
+  });
+
+//// MTV LOGO 2013
+
+// Declare a variable for the logo 2021
+var mtvlogo2013;
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showLogo2013 == true) {
+  mtvlogo2013 = document.createElement("video");
+  mtvlogo2013.src = "Logo Refeito Pronto Original OK 90.webm"; // 6.20s
+  mtvlogo2013.type = "video/webm";
+  mtvlogo2013.autoplay = false;
+  mtvlogo2013.id = "mtvhits-logo";
+  containerElement.appendChild(mtvlogo2013);
+}
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 0) {
+    mtvlogo2013.style.opacity = 1;
+    mtvlogo2013.play();
+  }
+});
+
+// Hide overlay 25 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 3) {
+    mtvlogo2013.pause();
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= videoElement.duration - 2) {
+      mtvlogo2013.play();
+    }
+  });
+
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= videoElement.duration - 1) {
+      mtvlogo2013.style.opacity = 0;
+      mtvlogo2013.pause();
+    }
+  });
+
+//// MTV HITS LOGO 2020
+
+// Declare a variable for the logo 2021
+var mtvhitslogo;
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showHitsLogo == true) {
+  mtvhitslogo = document.createElement("video");
+  mtvhitslogo.src = "MTV HITS LOGO (2023) Completo.webm"; // 6.20s
+  mtvhitslogo.type = "video/webm";
+  mtvhitslogo.autoplay = false;
+  mtvhitslogo.id = "mtvhits-logo";
+  containerElement.appendChild(mtvhitslogo);
+}
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 0) {
+    mtvhitslogo.style.opacity = 1;
+    mtvhitslogo.play();
+  }
+});
+
+// Hide overlay 25 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 2) {
+    mtvhitslogo.pause();
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= videoElement.duration - 5.5) {
+      mtvhitslogo.play();
+    }
+  });
+
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= videoElement.duration - 1) {
+      mtvhitslogo.style.opacity = 0;
+      mtvhitslogo.pause();
+    }
+  });
+
+//// LOGO 2017
+
+// Declare a variable for the logo 2021
+var logo2017;
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showLogo2017 == true) {
+  logo2017 = document.createElement("video");
+  logo2017.src = "Logo2017.webm"; // 15s
+  logo2017.type = "video/webm";
+  logo2017.autoplay = false;
+  logo2017.id = "logo-2017";
+  containerElement.appendChild(logo2017);
+}
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 0) {
+    logo2017.style.opacity = 1;
+    logo2017.play();
+  }
+});
+
+// Hide overlay 25 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 11) {
+    logo2017.pause();
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= videoElement.duration - 5) {
+      logo2017.play();
+    }
+  });
+
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= videoElement.duration - 1) {
+      logo2017.style.opacity = 0;
+      logo2017.pause();
+    }
+  });
+
+//// NEXT 2017
+
+  // Declare a variable for the logo 2021
+var next2017;
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showNext2017 == true) {
+  next2017 = document.createElement("video");
+  next2017.src = "Next2017.webm"; // 15s
+  next2017.type = "video/webm";
+  next2017.autoplay = false;
+  next2017.id = "next-2017";
+  containerElement.appendChild(next2017);
+}
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 20) {
+    next2017.style.opacity = 1;
+    next2017.play();
+  }
+});
+
+// Hide overlay 25 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 33.5) {
+    next2017.style.opacity = 0;
+    next2017.pause();
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= videoElement.duration - 43.5) {
+    next2017.style.opacity = 1;
+    next2017.play();
+    }
+  });
+
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= videoElement.duration - 30.10) {
+      next2017.style.opacity = 0;
+      next2017.pause();
+    }
+  });
+
+//// LOGO LEGENDA POP BR
+
+// Declare a variable for the logo 2021
+var legendaLogo;
+
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showLegendaLogo == true) {
+  legendaLogo = document.createElement("video");
+  legendaLogo.src = "Legenda Pop BR.webm";
+  legendaLogo.type = "video/webm";
+  legendaLogo.autoplay = false;
+  legendaLogo.id = "legenda-logo";
+  containerElement.appendChild(legendaLogo);
+}
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 0) {
+    legendaLogo.style.opacity = 1;
+    legendaLogo.play();
+  }
+});
+
+// Hide overlay 25 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 3.5) {
+    legendaLogo.pause();
+  }
+});
+
+// Show overlay again 25 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 4.5) {
+    legendaLogo.play();
+  }
+});
+
+// Hide overlay 10 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 1) {
+    legendaLogo.style.opacity = 0;
+        legendaLogo.pause();
+  }
+});
+
+
+//// GC 2013 (TESTE)
+
+// Declare a variable for the logo 2021
+var content2013;
+
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showContent1 == true) {
+  content2013 = document.createElement("video");
+  content2013.src = "GC 2013.webm";
+  content2013.type = "video/webm";
+  content2013.autoplay = false;
+  content2013.id = "content-2013";
+  containerElement.appendChild(content2013);
+}
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 5) {
+    content2013.style.opacity = 1;
+    content2013.play();
+  }
+});
+
+// Hide overlay 25 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 15) {
+    content2013.style.opacity = 0;
+    content2013.pause();
+  }
+});
+
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].show2017 == true) {
+  content2013 = document.createElement("video");
+  content2013.src = "Projeto_2.webm";
+  content2013.type = "video/webm";
+  content2013.autoplay = false;
+  content2013.id = "content-2013";
+  containerElement.appendChild(content2013);
+}
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 0) {
+    content2013.style.opacity = 1;
+    content2013.play();
+  }
+});
+
+// Hide overlay 25 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 5) {
+    content2013.style.opacity = 0;
+    content2013.pause();
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 5) {
+    mtvLogo2021.style.opacity = 1;
+        mtvLogo2021.play();
+  }
+});
+
+// Hide overlay 25 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 1) {
+    mtvLogo2021.style.opacity = 0;
+        mtvLogo2021.pause();
+  }
+});
+
+/////
+
+// Declare a variable for the logo 2021
+var mtvLogo2021;
+
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showLogo == true) {
+  mtvLogo2021 = document.createElement("video");
+  mtvLogo2021.src = "Logo2021.webm";
+  mtvLogo2021.type = "video/webm";
+  mtvLogo2021.autoplay = false;
+  mtvLogo2021.id = "mtv-logo-2021";
+  containerElement.appendChild(mtvLogo2021);
+}
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 0) {
+    mtvLogo2021.style.opacity = 1;
+        mtvLogo2021.play();
+  }
+});
+
+// Hide overlay 25 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 3.5) {
+        mtvLogo2021.pause();
+  }
+});
+
+// Show overlay again 25 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 4) {
+        mtvLogo2021.play();
+  }
+});
+
+// Hide overlay 10 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 1) {
+    mtvLogo2021.style.opacity = 0;
+        mtvLogo2021.pause();
+  }
+});
+
+// logo 2021 -
+
+// logo 2021 branco
+
+// Declare a variable for the logo 2021
+var mtvLogo2021branco;
+
+
+// Show or hide MTV logo 2 depending on value of showOverlay
+if (videoList[videoIndex].showLogoBranco == true) {
+  var mtvLogo2021branco = document.createElement("img");
+  mtvLogo2021branco.src = "mtvlogobranco.png";
+  mtvLogo2021branco.type = "img/png";
+  mtvLogo2021branco.id = "mtv-logo-2021-branco";
+  containerElement.appendChild(mtvLogo2021branco);
+}
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 1) {
+    mtvLogo2021branco.style.opacity = 1;
+  }
+});
+
+// Hide overlay 25 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+if (videoElement.currentTime >= videoElement.duration - 1) {
+  mtvLogo2021branco.style.opacity = 0;
+}
+});
+
+// logo 2021 branco
+
+setTimeout(function() {
+  // Cria um novo elemento div para armazenar o conteúdo do logo.html
+  const logoContainer = document.createElement('div');
+
+  // Carrega o conteúdo do logo.html usando a função fetch do JavaScript
+  fetch('logo.html')
+    .then(response => response.text())
+    .then(html => {
+      // Insere o conteúdo no novo elemento div
+      logoContainer.innerHTML = html;
+      
+      // Insere o novo elemento div no DOM da página
+      document.body.appendChild(logoContainer);
+    })
+    .catch(error => console.error(error));
+}, 10000); // 10000 milissegundos = 10 segundos
+
+// Text Overlay
+// Show or hide Text Overlay depending on value of showOverlay
+if (videoList[videoIndex].showTag == true) {}
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 40) {
+    textOverlay.classList.add("show");
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 40.03) {
+    textOverlay.style.opacity = 1;
+  }
+});
+
+// Hide text overlay after 5 seconds after start of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 44) {
+    textOverlay.style.opacity = 0.5;
+  }
+});
+
+// Show text overlay again 5 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 46.35) {
+    textOverlay.style.opacity = 1;
+  }
+});
+
+// Hide text overlay again 5 seconds before end of video
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 45.12) {
+    textOverlay.style.opacity = 0;
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 45.15) {
+    textOverlay.classList.remove("show");
+  }
+});
+
+// CLASSIFICAÇÃO INDICATIVA
+var mtvCl;
+
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showCl == true) {
+  mtvCl = document.createElement("video");
+  mtvCl.src = "Cl_14_Completo.webm";
+  mtvCl.type = "video/webm";
+  mtvCl.autoplay = false;
+  mtvCl.id = "gc";
+  containerElement.appendChild(mtvCl);
+}
+
+// SHOW Cl
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 3) {
+    mtvCl.style.opacity = 1;
+      mtvCl.play();
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 9) {
+    mtvCl.style.opacity = 0;
+    mtvCl.pause();
+  }
+});
+
+// CLASSIFICAÇÃO INDICATIVA
+var mtvCl2;
+
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showCl2 == true) {
+  mtvCl2 = document.createElement("video");
+  mtvCl2.src = "Cl_14.webm";
+  mtvCl2.type = "video/webm";
+  mtvCl2.autoplay = false;
+  mtvCl2.id = "gc";
+  containerElement.appendChild(mtvCl2);
+}
+
+// SHOW Cl
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 3) {
+    mtvCl2.style.opacity = 1;
+      mtvCl2.play();
+  }
+});
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 9) {
+    mtvCl2.style.opacity = 0;
+    mtvCl2.pause();
+  }
+});
+
+// Show or hide Overlay depending on value of showOverlay
+if (videoList[videoIndex].showOverlay == true) {
+  overlayElement.style.display = "block";
+  overlay2.style.display = "block";
+}
+
+// Show or hide Overlay depending on value of showOverlay
+if (videoList[videoIndex].showOverlay == false) {
+  overlayElement.style.display = "none";
+  overlay2.style.display = "none";
+}
+
+// Declare a variable for the gc
+var mtvGC;
+
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showOverlay == true) {
+  mtvGC = document.createElement("video");
+  mtvGC.src = "GC Inicial.webm";
+  mtvGC.type = "video/webm";
+  mtvGC.autoplay = false;
+  mtvGC.id = "gc";
+  containerElement.appendChild(mtvGC);
+}
+
+// SHOW GC
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 0) {
+    mtvGC.style.opacity = 1;
+    mtvGC.play();
+  }
+
+  if (videoElement.currentTime >= 25) {
+    mtvGC.style.opacity = 0;
+    mtvGC.pause(); // adiciona pausa ao elemento
+  }
+});
+
+// Declare a variable for the gc (2)
+var mtvGC2;
+
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showOverlay == true) {
+  mtvGC2 = document.createElement("video");
+  mtvGC2.src = "GC Final.webm";
+  mtvGC2.type = "video/webm";
+  mtvGC2.autoplay = false;
+  mtvGC2.id = "gc";
+  containerElement.appendChild(mtvGC2);
+}
+
+// SHOW GC
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= videoElement.duration - 33) {
+    mtvGC2.style.opacity = 1;
+    mtvGC2.play();
+  }
+
+  if (videoElement.currentTime >= videoElement.duration - 0) {
+    mtvGC2.style.opacity = 0;
+    mtvGC2.pause();
+  }
+});
+
+// Play video and show overlay
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 10.4) {
+    overlayElement.style.opacity = 1;
+    overlay2.style.opacity = 1;
+  }
+
+  if (videoElement.currentTime >= 24.4) {
+    overlayElement.style.opacity = 0;
+    overlay2.style.opacity = 0;
+    overlayElement.querySelector('.artist').style.animation = 'none';
+    overlay2.querySelector('.title').style.animation = 'none';
+  }
+
+  if (videoElement.currentTime >= videoElement.duration - 32.53) {
+    overlayElement.querySelector('.artist').style.animation = 'block';
+    overlay2.querySelector('.title').style.animation = 'block';
+    overlayElement.style.opacity = 1;
+    overlayElement.querySelector('.artist').style.animation = 'scrolling 25s linear infinite';
+    overlay2.style.opacity = 1;
+    overlay2.querySelector('.title').style.animation = 'scrolling2 25s linear infinite';
+  }
+
+  if (videoElement.currentTime >= videoElement.duration - 18.53) {
+    overlayElement.style.opacity = 0;
+    overlay2.style.opacity = 0;
+  }
+});
+
+overlaySecElement.style.display = "block";
+
+if (videoList[videoIndex].showOverlaySec == true) {
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 10 && videoElement.currentTime < 25) {
+      overlaySecElement.style.opacity = 1;
+    } else if (videoElement.currentTime >= videoElement.duration - 25 && videoElement.currentTime < videoElement.duration - 10) {
+      overlaySecElement.style.opacity = 1;
+    } else {
+      overlaySecElement.style.opacity = 0;
+    }
+  });
+}
+
+overlay3Element.style.display = "block";
+
+if (videoList[videoIndex].showOverlay3 == true) {
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 10 && videoElement.currentTime < 25) {
+      overlay3Element.style.opacity = 1;
+    } else if (videoElement.currentTime >= videoElement.duration - 25 && videoElement.currentTime < videoElement.duration - 10) {
+      overlay3Element.style.opacity = 1;
+    } else {
+      overlay3Element.style.opacity = 0;
+    }
+  });
+}
+
+overlay4Element.style.display = "block";
+
+if (videoList[videoIndex].showOverlay4 == true) {
+  videoElement.addEventListener("timeupdate", function() {
+    if (videoElement.currentTime >= 10.5 && videoElement.currentTime < 24.5) {
+      overlay4Element.style.opacity = 1;
+      overlay4Element.classList.add("show"); // Add the .show class to reveal the overlay
+    } else if (videoElement.currentTime >= videoElement.duration - 24.5 && videoElement.currentTime < videoElement.duration - 10.5) {
+      overlay4Element.style.opacity = 1;
+      overlay4Element.classList.add("show"); // Add the .show class to reveal the overlay
+    } else {
+      overlay4Element.style.opacity = 0;
+      overlay4Element.classList.remove("show"); // Remove the .show class to hide the overlay
+    }
+  });
+}
+
+// Declare a variable for the gc (2)
+var gc4;
+
+
+// Show or hide MTV logo 2 depending on value of showLogo
+if (videoList[videoIndex].showOverlay4 == true) {
+  gc4 = document.createElement("video");
+  gc4.src = "gc rock 2.webm";
+  gc4.type = "video/webm";
+  gc4.autoplay = false;
+  gc4.id = "gc";
+  containerElement.appendChild(gc4);
+}
+
+// SHOW GC
+
+videoElement.addEventListener("timeupdate", function() {
+  if (videoElement.currentTime >= 10) {
+    gc4.style.opacity = 0.8;
+    gc4.play();
+  }
+
+  if (videoElement.currentTime >= 25) {
+    gc4.style.opacity = 0;
+    gc4.pause();
+  }
+
+  if (videoElement.currentTime >= videoElement.duration - 25) {
+    gc4.style.opacity = 0.8;
+    gc4.play();
+  }
+
+  if (videoElement.currentTime >= videoElement.duration - 10) {
+    gc4.style.opacity = 0;
+    gc4.pause();
+  }
+});
+
+        }
+
+		function nextVideo() {
+			videoIndex++;
+			if (videoIndex >= videoList.length) {
+				videoIndex = 0;
+			}
+			playVideo();
+		}
+
+    function handleVideoError() {
+  var errorElement = document.createElement("div");
+  errorElement.innerText = "Error";
+  errorElement.className = "error-message";
+  errorElement.style.color = "white";
+  errorElement.style.fontSize = "100px";
+
+  videoPlayer.appendChild(errorElement);
+
+  // Pula para o próximo vídeo após um intervalo de tempo
+  setTimeout(nextVideo, 0); // Aguarda 2 segundos antes de pular para o próximo vídeo
+}
+
+		playVideo();
+	</script>
+</body>
+</html>
