@@ -1005,7 +1005,7 @@ function playVideo() {
     // Create video element
     var videoElement = document.createElement("video");
     videoElement.src = videoList[videoIndex].src;
-    videoElement.autoplay = true; // Adicionar esta linha
+    videoElement.autoplay = false; // Adicionar esta linha
     videoElement.controls = false;
     videoElement.playsinline = true; // Adiciona o atributo playsinline
     videoElement.addEventListener("ended", nextVideo);
